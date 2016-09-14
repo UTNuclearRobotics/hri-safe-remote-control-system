@@ -75,7 +75,7 @@ uint32_t JoystickHandler::handleNewMsg(const VscMsgType &incomingMsg)
 
 		sendLeftMsg.axes.push_back((float)getStickValue(joyMsg->leftX));
 		sendLeftMsg.axes.push_back((float)getStickValue(joyMsg->leftY));
-		sendLeftMsg.axes.push_back((float)getStickValue(joyMsg->leftZ));
+		//sendLeftMsg.axes.push_back((float)getStickValue(joyMsg->leftZ));
 
 		sendLeftMsg.buttons.push_back(getButtonValue(joyMsg->leftSwitch.home));
 		sendLeftMsg.buttons.push_back(getButtonValue(joyMsg->leftSwitch.first));
@@ -84,7 +84,7 @@ uint32_t JoystickHandler::handleNewMsg(const VscMsgType &incomingMsg)
 
 		sendLeftMsg.axes.push_back((float)getStickValue(joyMsg->rightX));
 		sendLeftMsg.axes.push_back((float)getStickValue(joyMsg->rightY));
-		sendLeftMsg.axes.push_back((float)getStickValue(joyMsg->rightZ));
+		//sendLeftMsg.axes.push_back((float)getStickValue(joyMsg->rightZ));
 
 		sendLeftMsg.buttons.push_back(getButtonValue(joyMsg->rightSwitch.home));
 		sendLeftMsg.buttons.push_back(getButtonValue(joyMsg->rightSwitch.first));
