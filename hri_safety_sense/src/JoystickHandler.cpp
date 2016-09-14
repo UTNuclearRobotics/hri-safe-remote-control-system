@@ -33,9 +33,9 @@ JoystickHandler::~JoystickHandler()
 {
 }
 
-int32_t JoystickHandler::getStickValue(JoystickType joystick)
+float JoystickHandler::getStickValue(JoystickType joystick)
 {
-	int32_t magnitude = (joystick.magnitude<<2) + joystick.mag_lsb;
+	float magnitude = ((float)((joystick.magnitude<<2) + joystick.mag_lsb) / 1023.0f);
 
 	if(joystick.neutral_status == STATUS_SET) {
 		return 0;
