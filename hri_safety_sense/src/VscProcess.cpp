@@ -42,7 +42,7 @@ VscProcess::VscProcess() :
   joystickHandler(rosNode)
 {
   std::string serialPort;
-  ros::param::param<std::string>("~vsc_port", serialPort, "/dev/ttyACM0");
+  ros::param::param<std::string>("~vsc_port", serialPort, "/dev/ttyACM1");
 
 	int serialSpeed;
   ros::param::param<int>("~baud_rate", serialSpeed, 115200);

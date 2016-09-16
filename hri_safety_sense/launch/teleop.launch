@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="joy_dev" default="/dev/ttyACM1" />
+  <arg name="joystick" default="true" />
+
+  <group ns="joy_teleop" if="$(arg joystick)">
+    <rosparam command="load" file="$(find rzr_control)/config/rzr_teleop.yaml" />
+
+    <node pkg="hri_safety_sense" type="hri_safety_sense_node" name="joy_node">
+      <param name="vsc_port" value="$(arg joy_dev)" />
+      <remap from="/joy" to="/joy_teleop/joy" />
+    </node>
+
+    <node pkg="teleop_twist_joy" type="teleop_node" name="teleop_twist_joy">
+      <remap from="cmd_vel" to="/joy_teleop/cmd_vel" />
+    </node>
+  </group>
+
+  <node pkg="interactive_marker_twist_server" type="marker_server" name="twist_marker_server">
+    <remap from="twist_marker_server/cmd_vel" to="/cmd_vel" />
+  </node>
+</launch>

@@ -37,7 +37,7 @@ namespace hri_safety_sense {
 
 	   private:
 
-		  int32_t getStickValue(JoystickType joystick);
+		  float getStickValue(JoystickType joystick);
 		  int32_t getButtonValue(uint8_t button);
 
 		  ros::Publisher 		rawLeftPub, rawRightPub;

@@ -26,16 +26,16 @@ using namespace hri_safety_sense;
 JoystickHandler::JoystickHandler(ros::NodeHandle& nh)
 {
 	// Joystick Pub
-	rawLeftPub = nh.advertise<sensor_msgs::Joy>("/joy", 10);
+	rawLeftPub = nh.advertise<sensor_msgs::Joy>("joy", 10);
 }
 
 JoystickHandler::~JoystickHandler()
 {
 }
 
-int32_t JoystickHandler::getStickValue(JoystickType joystick)
+float JoystickHandler::getStickValue(JoystickType joystick)
 {
-	int32_t magnitude = (joystick.magnitude<<2) + joystick.mag_lsb;
+	float magnitude = ((float)((joystick.magnitude<<2) + joystick.mag_lsb) / 1023.0f);
 
 	if(joystick.neutral_status == STATUS_SET) {
 		return 0;
@@ -75,20 +75,27 @@ uint32_t JoystickHandler::handleNewMsg(const VscMsgType &incomingMsg)
 
 		sendLeftMsg.axes.push_back((float)getStickValue(joyMsg->leftX));
 		sendLeftMsg.axes.push_back((float)getStickValue(joyMsg->leftY));
-		sendLeftMsg.axes.push_back((float)getStickValue(joyMsg->leftZ));
+		//sendLeftMsg.axes.push_back((float)getStickValue(joyMsg->leftZ));
 
-		sendLeftMsg.buttons.push_back(getButtonValue(joyMsg->leftSwitch.home));
+		sendLeftMsg.axes.push_back((float)getStickValue(joyMsg->rightX) * -1);
+		sendLeftMsg.axes.push_back((float)getStickValue(joyMsg->rightY));
+		//sendLeftMsg.axes.push_back((float)getStickValue(joyMsg->rightZ));
+
+    sendLeftMsg.buttons.push_back(0.0f);
+    sendLeftMsg.buttons.push_back(0.0f);
+    sendLeftMsg.buttons.push_back(0.0f);
+    sendLeftMsg.buttons.push_back(0.0f);
+
+    sendLeftMsg.buttons.push_back(getButtonValue(joyMsg->leftSwitch.home));
 		sendLeftMsg.buttons.push_back(getButtonValue(joyMsg->leftSwitch.first));
 		sendLeftMsg.buttons.push_back(getButtonValue(joyMsg->leftSwitch.second));
 		sendLeftMsg.buttons.push_back(getButtonValue(joyMsg->leftSwitch.third));
 
-		sendLeftMsg.axes.push_back((float)getStickValue(joyMsg->rightX));
-		sendLeftMsg.axes.push_back((float)getStickValue(joyMsg->rightY));
-		sendLeftMsg.axes.push_back((float)getStickValue(joyMsg->rightZ));
-
 		sendLeftMsg.buttons.push_back(getButtonValue(joyMsg->rightSwitch.home));
 		sendLeftMsg.buttons.push_back(getButtonValue(joyMsg->rightSwitch.first));
-		sendLeftMsg.buttons.push_back(getButtonValue(joyMsg->rightSwitch.second));
+		//sendLeftMsg.buttons.push_back(getButtonValue(joyMsg->rightSwitch.second));
+    uint8_t b = (getStickValue(joyMsg->leftZ) < 0) ? 1 : 0;
+    sendLeftMsg.buttons.push_back(b);
 		sendLeftMsg.buttons.push_back(getButtonValue(joyMsg->rightSwitch.third));
 
 		rawLeftPub.publish(sendLeftMsg);
