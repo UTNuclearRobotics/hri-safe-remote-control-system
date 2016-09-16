@@ -21,6 +21,7 @@
 int main(int argc, char **argv)
 {
   ros::init(argc, argv, "hri_safety_sense");
+  //ros::init(argc, argv, "joy_node");
 
   // Create vehicle interface
   hri_safety_sense::VscProcess vsc_interface;
