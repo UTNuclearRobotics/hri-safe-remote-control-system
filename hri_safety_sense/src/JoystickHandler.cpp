@@ -73,11 +73,11 @@ uint32_t JoystickHandler::handleNewMsg(const VscMsgType &incomingMsg)
 		sendLeftMsg.header.stamp = ros::Time::now();
 		sendLeftMsg.header.frame_id = "/srcs";
 
-		sendLeftMsg.axes.push_back((float)getStickValue(joyMsg->leftX));
+		sendLeftMsg.axes.push_back((float)getStickValue(joyMsg->leftX) * -1);
 		sendLeftMsg.axes.push_back((float)getStickValue(joyMsg->leftY));
 		//sendLeftMsg.axes.push_back((float)getStickValue(joyMsg->leftZ));
 
-		sendLeftMsg.axes.push_back((float)getStickValue(joyMsg->rightX) * -1);
+		sendLeftMsg.axes.push_back((float)getStickValue(joyMsg->rightX));
 		sendLeftMsg.axes.push_back((float)getStickValue(joyMsg->rightY));
 		//sendLeftMsg.axes.push_back((float)getStickValue(joyMsg->rightZ));
 
