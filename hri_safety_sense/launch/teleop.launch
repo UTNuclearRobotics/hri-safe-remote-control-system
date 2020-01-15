@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <launch>
-  <arg name="joy_dev" default="/dev/ttyACM1" />
+  <arg name="joy_dev" default="/dev/controller/hri" />
   <arg name="joystick" default="true" />
 
   <group ns="joy_teleop" if="$(arg joystick)">

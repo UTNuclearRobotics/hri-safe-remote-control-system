@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <launch>
   <node pkg="hri_safety_sense" type="hri_safety_sense_node" name="hri_safety_sense_node">
-    <param name="vsc_port" value="/dev/ttyACM0" />
+    <param name="vsc_port" value="/dev/controller/hri" />
     <param name="baud_rate" value="115200" />
     <param name="vsc_rate" value="50" />
   </node>
